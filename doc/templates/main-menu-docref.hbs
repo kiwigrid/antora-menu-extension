@@ -1,0 +1,7 @@
+<li><div class="menu-entry">
+    {{~#if resolved~}}
+        <a href="{{{relativize ref page.url}}}"{{~#if external~}} target="_blank"{{~/if~}}>{{doc_title}}{{~#if external~}}<i class="fa fa-external-link"></i>{{~/if~}}</a>
+    {{~else~}}
+        <a href="#"><div class="unresolved">{{doc_title}}</div></a>
+    {{~/if~}}
+</div></li>

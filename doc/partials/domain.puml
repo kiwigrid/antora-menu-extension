@@ -1,0 +1,14 @@
+@startuml
+class playbook
+class ui
+class "ui-template"
+class extension
+class "menu definition" as menu
+
+playbook --> extension: <<declares>>
+playbook --> ui: <<declares>>
+extension --> menu: <<uses>>
+ui --> "ui-template": <<contains>>
+extension -[#red]-> "ui-template": <<composes>>
+
+@enduml
