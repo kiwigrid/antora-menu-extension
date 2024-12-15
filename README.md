@@ -146,23 +146,15 @@ antora:
   extensions:
     - require: "@kiwigrid/antora-main-menu"
       hbs: 
-        menu: <Main template>
-        group_start: <Group beginning template>
-        group_end: <Group end template>
-        document_ref: <Document reference template>
+        menu: <Main template>                         # default main-menu
+        group_start: <Group beginning template>       # default main-menu-group-start
+        group_end: <Group end template>               # default main-menu-group-end
+        document_ref: <Document reference template>   # default main-menu-docref
 ```
-
-The default values are:
-
-* menu: `main-menu`
-* group_start: `main-menu-group-start`
-* group_end: `main-menu-group-end`
-* document_ref: `main-menu-docref`
-
 The templates are supporting the following parameter:
 
-#### main-menu
-No parameter
+* main-menu: No parameter
+* main-menu-group-end: No parameter
 
 
 #### main-menu-group-start
