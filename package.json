@@ -3,15 +3,18 @@
   "version": "1.0.0",
   "description": "Antora 3 extension to generate a dynamic main menu.",
   "contributors": [
-    { "name":  "Sven Krause", "email":  "sven.krause+gh@kiwigrid.com"}
+    {
+      "name": "Sven Krause",
+      "email": "sven.krause+gh@kiwigrid.com"
+    }
   ],
   "license": "MIT",
   "type": "commonjs",
   "main": "extensions/v1/index.js",
   "dependencies": {
+    "handlebars": "^4.7.7",
     "js-yaml": "^4.1.0",
-    "vinyl": "^2.2.1",
-    "handlebars": "^4.7.7"
+    "vinyl": "^2.2.1"
   },
   "peerDependencies": {
     "@antora/cli": "3.1.3"
