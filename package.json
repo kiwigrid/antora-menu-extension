@@ -16,9 +16,9 @@
     "antora"
   ],
   "repository": {
-		"url": "git+https://github.com/kiwigrid/antora-menu-extension.git"
-	},
-	"homepage": "https://github.com/kiwigrid/antora-menu-extension",
+    "url": "git+https://github.com/kiwigrid/antora-menu-extension.git"
+  },
+  "homepage": "https://github.com/kiwigrid/antora-menu-extension",
   "license": "MIT",
   "type": "commonjs",
   "main": "extensions/v1/index.js",
