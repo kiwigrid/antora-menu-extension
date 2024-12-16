@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/kiwigrid/antora-menu-extension/compare/v1.0.4...v1.0.5) (2024-12-16)
+
+
+### 🐛 Bug Fixes
+
+* proper handle nested menu entries for component catalog access ([2e92881](https://github.com/kiwigrid/antora-menu-extension/commit/2e92881aa591ddd856c9245dca4f63ca28f459d8))
+
 ## [1.0.4](https://github.com/kiwigrid/antora-menu-extension/compare/v1.0.3...v1.0.4) (2024-12-16)
 
 
