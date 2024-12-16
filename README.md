@@ -1,3 +1,7 @@
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/kiwigrid/antora-menu-extension?style=flat)](https://github.com/kiwigrid/antora-menu-extension/releases)
+[![npm (scoped)](https://img.shields.io/npm/v/@kiwigrid/antora-main-menu)](https://www.npmjs.com/package/@kiwigrid/antora-main-menu)
+[![npm](https://img.shields.io/npm/dm/@kiwigrid/antora-main-menu)](https://www.npmjs.com/package/@kiwigrid/antora-main-menu)
+
 # antora-menu-extension
 Antora 3 extension to assemble customized main menu
 

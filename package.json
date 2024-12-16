@@ -6,8 +6,19 @@
     {
       "name": "Sven Krause",
       "email": "sven.krause+gh@kiwigrid.com"
+    },
+    {
+      "name": "Jörg Eichhorn",
+      "email": "joerg@kiwigrid.com"
     }
   ],
+  "keywords": [
+    "antora"
+  ],
+  "repository": {
+    "url": "git+https://github.com/kiwigrid/antora-menu-extension.git"
+  },
+  "homepage": "https://github.com/kiwigrid/antora-menu-extension",
   "license": "MIT",
   "type": "commonjs",
   "main": "extensions/v1/index.js",
