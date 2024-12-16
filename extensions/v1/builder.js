@@ -85,7 +85,7 @@ class MenuBuilder {
         parentNode?.add(groupNode);
         entry.entries?.forEach((subEntry) => {
             if (subEntry.module) {
-                let component = contentCatalog.getComponent(entry.module);
+                let component = contentCatalog.getComponent(subEntry.module);
                 groupNode.add(component
                     ? Document.resolved(component.latest.title, component.latest.url)
                     : Document.unresolved(entry.module));
