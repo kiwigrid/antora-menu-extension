@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/kiwigrid/antora-menu-extension/compare/v1.0.3...v1.0.4) (2024-12-16)
+
+
+### 🐛 Bug Fixes
+
+* add release required package-lock.json ([14d9d38](https://github.com/kiwigrid/antora-menu-extension/commit/14d9d389505b850e5492dab93354e446af5d5d69))
+
 ## [1.0.3](https://github.com/kiwigrid/antora-menu-extension/compare/v1.0.2...v1.0.3) (2024-12-16)
 
 
