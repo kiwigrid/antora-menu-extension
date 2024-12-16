@@ -97,15 +97,13 @@ class MenuContent {
     }
 
     mapGroup(entry, level) {
-        const start = this.startGroup(entry.title, level);
-        const end = this.endGroup();
         const content = entry.groups
             .map(nested => nested.groups ? this.mapGroup(nested, level+1) : this.link(nested) )
             .map(s => this.indent(level + 1) + s)
             .join('\n');
-        return `${start}
+        return `${this.startGroup(entry.title, level)}
 ${content}
-${this.indent(level)}${end}`;
+${this.indent(level)}${this.endGroup()}`;
     }
 
 }
