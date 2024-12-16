@@ -1,6 +1,6 @@
 {
   "name": "@kiwigrid/antora-main-menu",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Antora 3 extension to generate a dynamic main menu.",
   "contributors": [
     {
