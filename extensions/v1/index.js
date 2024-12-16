@@ -20,7 +20,7 @@ class DynaMenuExtension {
         ;(this.antoraContext) = context
             .on('contentAggregated', this.contentAggregated.bind(this))
             .on('navigationBuilt', this.navigationBuilt.bind(this));
-        this.logger = this.antoraContext.getLogger('menu-extension');
+        this.logger = this.antoraContext.getLogger('main-menu-extension');
         this.builder = new MenuBuilder(config, this.logger);
         this.partialName = config.hsb?.menuPartial ? config.hbs?.menuPartial : 'main-menu';
     }
