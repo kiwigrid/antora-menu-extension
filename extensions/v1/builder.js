@@ -87,7 +87,7 @@ class MenuBuilder {
             if (subEntry.module) {
                 let component = contentCatalog.getComponent(subEntry.module);
                 groupNode.add(component
-                    ? Document.resolved(component.latest.title, component.latest.url)
+                    ? Document.resolved(component.latest.title, component.latest.url, component.name)
                     : Document.unresolved(entry.module));
             } else if (subEntry.link) {
                 groupNode.add(Document.external(subEntry.title, subEntry.link));
