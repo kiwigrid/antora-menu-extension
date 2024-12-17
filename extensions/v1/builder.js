@@ -44,11 +44,11 @@ class MenuBuilder {
 
     resolveMenuDefinition(modules) {
         if (this.componentName && this.configFile) {
-            let configModule = modules.find(module => module.name === this.componentName);
+            const configModule = modules.find(module => module.name === this.componentName);
             if (configModule === undefined) {
                 throw new Error(`specified menu component ${this.componentName} not found`);
             }
-            let menuConfigFile = configModule.files.find(file => file.src.path === this.configFile);
+            const menuConfigFile = configModule.files.find(file => file.src.path === this.configFile);
             if (menuConfigFile === undefined) {
                 throw new Error(`specified menu file ${this.configFile} not found in component ${this.componentName}`);
             }
@@ -61,10 +61,15 @@ class MenuBuilder {
 
     build(contentCatalog) {
         // resolved menu template
-        let mainMenuContent = new MenuContent(this.hbs.groupStart, this.hbs.groupEnd, this.hbs.docRef);
+        const mainMenuContent = new MenuContent(this.hbs.groupStart, this.hbs.groupEnd, this.hbs.docRef);
         this.menu.forEach(entry => {
             if (entry.title) {
                 mainMenuContent.add(this.inspectGroupEntry(undefined, entry, contentCatalog));
+            } else if (entry.module) {
+                const component = contentCatalog.getComponent(entry.module);
+                mainMenuContent.add(component
+                    ? Document.resolved(component.latest.title, component.latest.url, component.name)
+                    : Document.unresolved(entry.module));
             } else {
                 throw new Error(`root element must have a title and optional entries ${this.toString(entry)}`);
             }
@@ -73,7 +78,7 @@ class MenuBuilder {
     }
 
     toString(entry) {
-        var s = `${entry.toString()} {`;
+        let s = `${entry.toString()} {`;
         Object.getOwnPropertyNames(entry).forEach(key => {
             s += `${key}=${entry[key]}, `
         });
@@ -81,11 +86,11 @@ class MenuBuilder {
     }
 
     inspectGroupEntry(parentNode, entry, contentCatalog) {
-        let groupNode = new Group(entry.title);
+        const groupNode = new Group(entry.title);
         parentNode?.add(groupNode);
         entry.entries?.forEach((subEntry) => {
             if (subEntry.module) {
-                let component = contentCatalog.getComponent(subEntry.module);
+                const component = contentCatalog.getComponent(subEntry.module);
                 groupNode.add(component
                     ? Document.resolved(component.latest.title, component.latest.url, component.name)
                     : Document.unresolved(entry.module));

@@ -78,7 +78,12 @@ class MenuContent {
 
     toPartialHandlebar() {
         return this.groups
-            .map(entry => this.mapGroup(entry, 0))
+            .map(
+                function(entry) {
+                    if (entry instanceof Group) return this.mapGroup(entry, 0);
+                    if (entry instanceof Document) return this.link(entry);
+                }, this
+            )
             .join("\n");
     }
 
