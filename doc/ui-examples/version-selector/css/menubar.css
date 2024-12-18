@@ -1,0 +1,94 @@
+.component-selector {
+  position: relative;
+  top: 0.45rem;
+}
+.component-selector i.fa {
+  font-size: 100%;
+  vertical-align: middle;
+}
+.component-selector a { color: var(--menubar-text-color); }
+.component-selector ul {
+  font-size: 0;
+  list-style-type: none;
+  padding: 0;
+}
+.component-selector ul li {
+  display: inline-block;
+  font-size: .86rem;
+  color: var(--menubar-text-color);
+  padding: 14px;
+  position: relative;
+  z-index: 999;
+}
+.component-selector ul li .nav-item-toggle {
+  background: transparent url(../img/chevron.svg) no-repeat center / 50%;
+  border: none;
+  outline: none;
+  line-height: inherit;
+  padding: 0;
+  position: absolute;
+  margin-top: 0;
+  margin-left: calc(var(--nav-line-height) * 1em - 1.5em);
+  transform: rotate(0deg);
+}
+.component-selector ul li span {
+  background-color: var(--menubar-version-label-color);
+  border-radius: 3px;
+  display: inline-block;
+  font-size: 0.6rem;
+  padding: 2px 5px;
+  text-align: center;
+  vertical-align: bottom;
+}
+.component-selector ul li span a { color: white }
+.component-selector ul li span:hover {
+  background-color: var(--menubar-version-label-hover-color);
+}
+.component-selector ul li span:hover a {
+  text-decoration: none;
+  color: var(--menubar-text-color);
+}
+.component-selector ul li ul {
+  display: none;
+  top: 28px;
+}
+.component-selector ul li:hover {
+  cursor: pointer;
+  /* background-color: var(--menubar-background-color); */
+}
+.component-selector ul li:hover ul {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  display: block;
+  left: 0;
+  margin-top: 15px;
+  max-height: 72vh;
+  overflow-y: auto;
+  position: absolute;
+  scrollbar-color: auto;
+  overscroll-behavior-y: none;
+  width: 320px;
+}
+.component-selector ul li:hover ul li {
+  display: block;
+  background-color: var(--menubar-background-color);
+}
+.component-selector ul li:hover ul li:hover {
+  background-color: var(--menubar-hover-color);
+}
+.component-selector ul li:hover ul li span {
+  background-color: var(--menubar-version-label-color);
+  border-radius: 3px;
+  display: inline-block;
+  font-size: 0.6rem;
+  padding: 2px 5px;
+  text-align: center;
+  vertical-align: bottom;
+}
+.component-selector ul li:hover ul li span a { color: white }
+.component-selector ul li:hover ul li span:hover {
+  background-color: var(--menubar-version-label-hover-color);
+}
+.component-selector ul li:hover ul li span:hover a {
+  text-decoration: none;
+  color: var(--menubar-text-color);
+}
