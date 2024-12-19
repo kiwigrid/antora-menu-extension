@@ -30,8 +30,8 @@ class DynaMenuExtension {
     }
 
     navigationBuilt({playbook, siteAsciiDocConfig, siteCatalog, uiCatalog, contentCatalog, navigationCatalog}) {
-        let htmlPartialContent = this.builder.build(contentCatalog);
-        let menuFile = this.registerMainMenuContent(htmlPartialContent);
+        const htmlPartialContent = this.builder.build(contentCatalog);
+        const menuFile = this.registerMainMenuContent(htmlPartialContent);
         this.logger.debug(`derived menu template: 
 ============
 ${htmlPartialContent}

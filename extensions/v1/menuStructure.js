@@ -32,24 +32,26 @@ class Document extends Entry {
     ref;
     resolved;
     external;
+    component;
 
     static external(title, ref) {
-        return new Document(title, ref, true, true);
+        return new Document(title, ref, true, true, null);
     }
 
-    static resolved(title, ref) {
-        return new Document(title, ref, true, false);
+    static resolved(title, ref, component) {
+        return new Document(title, ref, true, false, component);
     }
 
     static unresolved(name) {
-        return new Document(name, "#", false, false);
+        return new Document(name, "#", false, false, null);
     }
 
-    constructor(title, ref, resolved = true, external = false) {
+    constructor(title, ref, resolved = true, external = false, component = null) {
         super(title);
         this.ref = ref;
         this.resolved = resolved;
         this.external = external;
+        this.component = component;
     }
 
     toString() {
@@ -76,7 +78,12 @@ class MenuContent {
 
     toPartialHandlebar() {
         return this.groups
-            .map(entry => this.mapGroup(entry, 0))
+            .map(
+                function(entry) {
+                    if (entry instanceof Group) return this.mapGroup(entry, 0);
+                    if (entry instanceof Document) return this.link(entry);
+                }, this
+            )
             .join("\n");
     }
 
@@ -89,7 +96,7 @@ class MenuContent {
     }
 
     link(entry) {
-        return `{{> ${this.hbsDocRef} resolved=${entry.resolved} doc_title="${entry.title}" ref="${entry.ref}" external=${entry.external} }}`;
+        return `{{> ${this.hbsDocRef} resolved=${entry.resolved} doc_title="${entry.title}" ref="${entry.ref}" external=${entry.external} component="${entry.component}" }}`;
     }
 
     indent(level) {

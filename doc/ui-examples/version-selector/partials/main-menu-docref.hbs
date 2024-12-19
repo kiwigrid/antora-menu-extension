@@ -1,0 +1,18 @@
+<li>
+{{#if (and resolved (not external))}}
+{{#with (lookup site.components component)}}
+  <a href="{{{relativize ./url}}}">{{{./title}}}</a>
+  {{#each ./versions}}
+  {{#if (ne ./displayVersion 'default')}}
+  <span class="version
+    {{#if (and (eq .. @root.page.component) (eq this @root.page.componentVersion))}} is-current{{/if}}
+    {{#if (eq this ../latest)}} is-latest{{/if}}">
+    <a href="{{{relativize ./url}}}">{{./displayVersion}}</a>
+  </span>
+  {{/if}}
+  {{/each}}
+{{/with}}
+{{else}}
+  <a href="{{{relativize ref page.url}}}"{{#if external}} target="_blank"{{/if}}>{{doc_title}}{{#if external}} <i class="fa fa-external-link-alt"></i>{{/if}}</a>
+{{/if}}
+</li>
