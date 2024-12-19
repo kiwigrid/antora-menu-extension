@@ -169,10 +169,6 @@ The templates are supporting the following parameter:
   * Menu group text
 
 
-#### main-menu-group-end
-
-No parameter
-
 #### main-menu-docref
 
 * `resolved`
@@ -185,6 +181,8 @@ No parameter
 * `ref`
   * Resolvable (either absolute or relative to playbook base) document URI.
   * The parameter contains `#`, if the parameter `resolved` is marked `false`.
+* `component`
+  * the components name (from antory.yml), if resolved, or `null` for unresolved module references.
 
 ### Sample
 
@@ -217,7 +215,7 @@ The template `main-menu` is created by the extension as:
 {{> main-menu-group-end}}
 ```
 
-Find sample templates in [templates](doc/templates) folder.
+Find sample templates in [templates](doc/templates) or [ui-examples](doc/ui-examples) folder.
 
 
 
