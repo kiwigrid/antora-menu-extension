@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.1.0](https://github.com/kiwigrid/antora-menu-extension/compare/v1.0.5...v1.1.0) (2024-12-19)
+
+
+### 🎁 Features
+
+* allow external links on main level ([97a399b](https://github.com/kiwigrid/antora-menu-extension/commit/97a399baf49b625cef74a8115bcc8563e4c907be))
+* Enable links to modules at top level. Minor fixes from linter ([412ec1d](https://github.com/kiwigrid/antora-menu-extension/commit/412ec1d705ec8304d3d1c3d7090083db6b5dcb72))
+* more advanced ui sample ([0103210](https://github.com/kiwigrid/antora-menu-extension/commit/0103210a1d0dc27b96f7d85a674932f59964a820))
+* Pass component name to underlying template to build not only component, but version labels too ([59077b7](https://github.com/kiwigrid/antora-menu-extension/commit/59077b7e5ece7892c1f538c004e48613c3669610))
+* UI example for dropdown menus with version selector ([cca20b9](https://github.com/kiwigrid/antora-menu-extension/commit/cca20b9d038fb28a5a1bef9d05b41a1b268708be))
+
+
+### 📖 Documentation
+
+* extend readme for component parameter at main-menu-docref template ([0103210](https://github.com/kiwigrid/antora-menu-extension/commit/0103210a1d0dc27b96f7d85a674932f59964a820))
+
 ## [1.0.5](https://github.com/kiwigrid/antora-menu-extension/compare/v1.0.4...v1.0.5) (2024-12-16)
 
 
