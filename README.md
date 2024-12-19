@@ -72,7 +72,7 @@ antora:
 
 The definition and the dedicated component resource are following the same schema:
 
-A menu definition consists a list if of menu groups.
+A menu definition consists of a list if of menu groups, component references and/or external links.
 
 A **group** is defined as:
 
@@ -182,7 +182,7 @@ The templates are supporting the following parameter:
   * Resolvable (either absolute or relative to playbook base) document URI.
   * The parameter contains `#`, if the parameter `resolved` is marked `false`.
 * `component`
-  * the components name (from antory.yml), if resolved, or `null` for unresolved module references.
+  * the components name (from antory.yml), if resolved, or `null` for unresolved module references and external links.
 
 ### Sample
 
@@ -208,8 +208,8 @@ The template `main-menu` is created by the extension as:
 ```handlebars
 {{> main-menu-group-start level=0 group_title="Products"}}
     {{> main-menu-group-start level=1 group_title="sub group"}}
-        {{> main-menu-docref resolved=true external=false ref="/existing-module/latest/<startpage of existing-module>.html" doc_title="<Title of existing-module>"}}
-        {{> main-menu-docref resolved=false external=false ref="#" doc_title="not-existing-module"}}
+        {{> main-menu-docref resolved=true external=false ref="/existing-module/latest/<startpage of existing-module>.html" doc_title="<Title of existing-module>" component="<name of existing-module>"}}
+        {{> main-menu-docref resolved=false external=false ref="#" doc_title="not-existing-module" component="null"}}
         {{> main-menu-docref resolved=true external=true ref="https://docs.antora.org" doc_title="Antora Doc"}}
     {{> main-menu-group-end}}
 {{> main-menu-group-end}}

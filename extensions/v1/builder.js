@@ -62,46 +62,40 @@ class MenuBuilder {
     build(contentCatalog) {
         // resolved menu template
         const mainMenuContent = new MenuContent(this.hbs.groupStart, this.hbs.groupEnd, this.hbs.docRef);
-        this.menu.forEach(entry => {
-            if (entry.title) {
-                mainMenuContent.add(this.inspectGroupEntry(undefined, entry, contentCatalog));
-            } else if (entry.module) {
-                const component = contentCatalog.getComponent(entry.module);
-                mainMenuContent.add(component
-                    ? Document.resolved(component.latest.title, component.latest.url, component.name)
-                    : Document.unresolved(entry.module));
-            } else {
-                throw new Error(`root element must have a title and optional entries ${this.toString(entry)}`);
-            }
-        })
+        this.menu.forEach(entry => { mainMenuContent.add(this.inspectEntry(entry, contentCatalog)) })
         return mainMenuContent.toPartialHandlebar();
     }
 
     toString(entry) {
-        let s = `${entry.toString()} {`;
-        Object.getOwnPropertyNames(entry).forEach(key => {
-            s += `${key}=${entry[key]}, `
-        });
-        return `${s} }`;
+        const values = Object.getOwnPropertyNames(entry)
+            .map((key) => `${key}=${entry[key]}`)
+            .join(",");
+        return `${entry.toString()} { ${values} }`;
     }
 
-    inspectGroupEntry(parentNode, entry, contentCatalog) {
-        const groupNode = new Group(entry.title);
-        parentNode?.add(groupNode);
-        entry.entries?.forEach((subEntry) => {
-            if (subEntry.module) {
-                const component = contentCatalog.getComponent(subEntry.module);
-                groupNode.add(component
-                    ? Document.resolved(component.latest.title, component.latest.url, component.name)
-                    : Document.unresolved(entry.module));
-            } else if (subEntry.link) {
-                groupNode.add(Document.external(subEntry.title, subEntry.link));
-            } else if (subEntry.title) {
-                this.inspectGroupEntry(groupNode, subEntry, contentCatalog);
-            }
-        })
-        return groupNode;
+    inspectEntry(entry, contentCatalog) {
+        if(entry.link) {
+            // external link
+            return Document.external(entry.title, entry.link);
+        } else if(entry.module) {
+            // module reference
+            const component = contentCatalog.getComponent(entry.module);
+            return component
+                ? Document.resolved(component.latest.title, component.latest.url, component.name)
+                : Document.unresolved(entry.module);
+        } else if(entry.title) {
+            // group
+            const groupNode = new Group(entry.title);
+            entry.entries?.forEach((subEntry) => {
+                groupNode.add(this.inspectEntry(subEntry, contentCatalog));
+            });
+            return groupNode;
+        } else {
+            // unspecified
+            throw new Error(`bad entry format. Couldn't identify one of [group, module reference or external link]. Entry: ${this.toString(entry)}`)
+        }
     }
+
 }
 
 
