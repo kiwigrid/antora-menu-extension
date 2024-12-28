@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/kiwigrid/antora-menu-extension/compare/v1.1.0...v1.1.1) (2024-12-28)
+
+
+### 🐛 Bug Fixes
+
+* less strict peerDependency ([dea4adf](https://github.com/kiwigrid/antora-menu-extension/commit/dea4adf85f68568195a0b7e33a7b8aa51ebcdf1f))
+
 ## [1.1.0](https://github.com/kiwigrid/antora-menu-extension/compare/v1.0.5...v1.1.0) (2024-12-19)
 
 
