@@ -59,6 +59,27 @@ class MenuBuilder {
         }
     }
 
+    identifyOrphanedComponents(contentCatalog) {
+        const components = contentCatalog.getComponents().map(component => component.name);
+        this.menu.forEach(menuEntry => {
+            this.reduceComponents(menuEntry, module => {
+                const idx = components.indexOf(module);
+                if (idx > -1) {
+                    components.splice(idx, 1);
+                }
+            });
+        });
+        return components;
+    }
+
+    reduceComponents(menuEntry, fnHandler) {
+        if(menuEntry.module) {
+            fnHandler(menuEntry.module);
+        } else if(menuEntry.entries) {
+            menuEntry.entries.forEach(entry => this.reduceComponents(entry, fnHandler))
+        }
+    }
+
     build(contentCatalog) {
         // resolved menu template
         const mainMenuContent = new MenuContent(this.hbs.groupStart, this.hbs.groupEnd, this.hbs.docRef);
