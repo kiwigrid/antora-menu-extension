@@ -19,6 +19,7 @@ class DynaMenuExtension {
     constructor(context, config) {
         ;(this.antoraContext) = context
             .on('contentAggregated', this.contentAggregated.bind(this))
+            .on('contentClassified', this.contentClassified.bind(this))
             .on('navigationBuilt', this.navigationBuilt.bind(this));
         this.logger = this.antoraContext.getLogger('main-menu-extension');
         this.builder = new MenuBuilder(config, this.logger);
@@ -27,6 +28,13 @@ class DynaMenuExtension {
 
     contentAggregated({playbook, siteCatalog, contentAggregate}) {
         this.builder.resolveMenuDefinition(contentAggregate);
+    }
+
+    contentClassified({playbook, siteAsciiDocConfig, siteCatalog, uiCatalog, contentCatalog}) {
+        const orphanedComponents = this.builder.identifyOrphanedComponents(contentCatalog);
+        if (orphanedComponents.length > 0) {
+            this.logger.warn(`orphaned components: ${orphanedComponents}`);
+        }
     }
 
     navigationBuilt({playbook, siteAsciiDocConfig, siteCatalog, uiCatalog, contentCatalog, navigationCatalog}) {
