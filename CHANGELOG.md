@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/kiwigrid/antora-menu-extension/compare/v1.1.1...v1.2.0) (2025-04-05)
+
+
+### 🎁 Features
+
+* add orphaned component detection on menu composition ([745e931](https://github.com/kiwigrid/antora-menu-extension/commit/745e931bc017f3a2c63690bf29225f37896cc8c9))
+* add orphaned component detection on menu composition ([cd51ee9](https://github.com/kiwigrid/antora-menu-extension/commit/cd51ee943c8eae8ab66c57477300213af7d7af48))
+
 ## [1.1.1](https://github.com/kiwigrid/antora-menu-extension/compare/v1.1.0...v1.1.1) (2024-12-28)
 
 
