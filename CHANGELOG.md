@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0](https://github.com/kiwigrid/antora-menu-extension/compare/v1.2.0...v1.3.0) (2025-05-16)
+
+
+### 🎁 Features
+
+* support dedicated page reference on component menu entries ([ce9a503](https://github.com/kiwigrid/antora-menu-extension/commit/ce9a50324ca1035ab0740e10953f886afd34bfd4))
+* support overriding default title for module and module page entries. ([2cf261f](https://github.com/kiwigrid/antora-menu-extension/commit/2cf261fea69166a6b71b8624a3a9aa4ba73329c1))
+
 ## [1.2.0](https://github.com/kiwigrid/antora-menu-extension/compare/v1.1.1...v1.2.0) (2025-04-05)
 
 
