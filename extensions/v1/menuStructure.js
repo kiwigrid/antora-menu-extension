@@ -31,31 +31,37 @@ class Group extends Entry {
 class Document extends Entry {
     ref;
     resolved;
+    page;
     external;
     component;
 
     static external(title, ref) {
-        return new Document(title, ref, true, true, null);
+        return new Document(title, ref, true, true, false, null);
     }
 
     static resolved(title, ref, component) {
-        return new Document(title, ref, true, false, component);
+        return new Document(title, ref, true, false, false, component);
+    }
+
+    static resolvedPage(title, ref, component) {
+        return new Document(title, ref, true, false, true, component);
     }
 
     static unresolved(name) {
-        return new Document(name, "#", false, false, null);
+        return new Document(name, "#", false, false, false, null);
     }
 
-    constructor(title, ref, resolved = true, external = false, component = null) {
+    constructor(title, ref, resolved = true, external = false, page = false, component = null) {
         super(title);
         this.ref = ref;
         this.resolved = resolved;
         this.external = external;
+        this.page = page;
         this.component = component;
     }
 
     toString() {
-        return `Document(${this.title}${this.external ? " ,external" : ""}${this.resolved ? ", resolved" : ""},${this.ref})`
+        return `Document(${this.title}${this.external ? " ,external" : ""}${this.resolved ? ", resolved" : ""}${this.page ? ", page" : ""},${this.ref})`
     }
 }
 
@@ -96,7 +102,7 @@ class MenuContent {
     }
 
     link(entry) {
-        return `{{> ${this.hbsDocRef} resolved=${entry.resolved} doc_title="${entry.title}" ref="${entry.ref}" external=${entry.external} component="${entry.component}" }}`;
+        return `{{> ${this.hbsDocRef} resolved=${entry.resolved} doc_title="${entry.title}" ref="${entry.ref}" external=${entry.external} component="${entry.component}" page=${entry.page} }}`;
     }
 
     indent(level) {

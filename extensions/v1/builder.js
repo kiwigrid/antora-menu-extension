@@ -101,6 +101,15 @@ class MenuBuilder {
         } else if(entry.module) {
             // module reference
             const component = contentCatalog.getComponent(entry.module);
+            if(component && entry.page ) {
+                let pages = contentCatalog.getPages(p => {
+                    return p.src.path === entry.page;
+                });
+                let page = pages.find(()  => true);
+                return page
+                  ? Document.resolvedPage(page.asciidoc.doctitle, page.pub.url, component.name)
+                  : Document.resolved(component.latest.title, component.latest.url, component.name);
+            }
             return component
                 ? Document.resolved(component.latest.title, component.latest.url, component.name)
                 : Document.unresolved(entry.module);

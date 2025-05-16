@@ -85,16 +85,29 @@ A **group** is defined as:
 ```
 Nested elements may be groups (again), component references and/or external links.
 
-A **component reference** is defined as:
+A **component start page reference** is defined as:
 
 ```yaml
 - module: <moduleId>
 ```
+where 
+* `<moduleId>` is the `name` value from the targeted `antora.yml` element. 
+
+A **component explicit page reference** is defined as:
+
+```yaml
+- module: <moduleId>
+  page: <pageFilePath>
+```
+
+where 
+* `<moduleId>` is the `name` value from the targeted `antora.yml` element and
+* `<pageFilePath>` is the relative filesystem path to the page file to target
 
 An **external link** is defined as:
 
 ```yaml
-- title: <link display tex>
+- title: <link display text>
   link: <target url>
 ```
 
@@ -109,6 +122,8 @@ antora:
             - module: product-A
             - title: Product Sub 1
               entries:
+                - module: product-A
+                  page: "modules/ROOT/pages/anotherPage.adoc"
                 - module: product-B
         - title: Help
           entries:
@@ -198,6 +213,8 @@ antora:
             - title: sub group
               entries:
                 - module: existing-module
+                - module: existing-module
+                  page: "modules/ROOT/pages/sample.adoc"
                 - module: not-existing-module
                 - title: Antora Doc
                   link: https://docs.antora.org
@@ -208,9 +225,10 @@ The template `main-menu` is created by the extension as:
 ```handlebars
 {{> main-menu-group-start level=0 group_title="Products"}}
     {{> main-menu-group-start level=1 group_title="sub group"}}
-        {{> main-menu-docref resolved=true external=false ref="/existing-module/latest/<startpage of existing-module>.html" doc_title="<Title of existing-module>" component="<name of existing-module>"}}
-        {{> main-menu-docref resolved=false external=false ref="#" doc_title="not-existing-module" component="null"}}
-        {{> main-menu-docref resolved=true external=true ref="https://docs.antora.org" doc_title="Antora Doc"}}
+        {{> main-menu-docref resolved=true external=false ref="/existing-module/latest/<startpage of existing-module>.html" doc_title="<Title of existing-module>" component="<name of existing-module>" page=false}}
+        {{> main-menu-docref resolved=true external=false ref="/existing-module/latest/<sample>.html" doc_title="<Title of sample.adoc>" component="<name of existing-module>" page=true}}
+        {{> main-menu-docref resolved=false external=false ref="#" doc_title="not-existing-module" component="null" page=false}}
+        {{> main-menu-docref resolved=true external=true ref="https://docs.antora.org" doc_title="Antora Doc" component="null" page=false}}
     {{> main-menu-group-end}}
 {{> main-menu-group-end}}
 ```
