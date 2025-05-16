@@ -107,11 +107,11 @@ class MenuBuilder {
                 });
                 let page = pages.find(()  => true);
                 return page
-                  ? Document.resolvedPage(page.asciidoc.doctitle, page.pub.url, component.name)
-                  : Document.resolved(component.latest.title, component.latest.url, component.name);
+                    ? Document.resolvedPage(entry.title ? entry.title : page.asciidoc.doctitle, page.pub.url, component.name)
+                    : Document.unresolvedPage(`${component.latest.title} (${entry.page})`, component.latest.url, component.name);
             }
             return component
-                ? Document.resolved(component.latest.title, component.latest.url, component.name)
+                ? Document.resolved(entry.title ? entry.title : component.latest.title, component.latest.url, component.name)
                 : Document.unresolved(entry.module);
         } else if(entry.title) {
             // group

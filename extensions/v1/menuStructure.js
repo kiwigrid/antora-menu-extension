@@ -47,6 +47,10 @@ class Document extends Entry {
         return new Document(title, ref, true, false, true, component);
     }
 
+    static unresolvedPage(title, ref, component) {
+        return new Document(title, ref, false, false, true, component);
+    }
+
     static unresolved(name) {
         return new Document(name, "#", false, false, false, null);
     }

@@ -89,6 +89,7 @@ A **component start page reference** is defined as:
 
 ```yaml
 - module: <moduleId>
+  title: "optional: override default title"
 ```
 where 
 * `<moduleId>` is the `name` value from the targeted `antora.yml` element. 
@@ -98,6 +99,7 @@ A **component explicit page reference** is defined as:
 ```yaml
 - module: <moduleId>
   page: <pageFilePath>
+  title: "optional: override default title"
 ```
 
 where 
@@ -197,7 +199,7 @@ The templates are supporting the following parameter:
   * Resolvable (either absolute or relative to playbook base) document URI.
   * The parameter contains `#`, if the parameter `resolved` is marked `false`.
 * `component`
-  * the components name (from antory.yml), if resolved, or `null` for unresolved module references and external links.
+  * the components name (from antora.yml), if resolved, or `null` for unresolved module references and external links.
 
 ### Sample
 
