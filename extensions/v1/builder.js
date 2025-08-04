@@ -43,6 +43,7 @@ class MenuBuilder {
     }
 
     resolveMenuDefinition(modules) {
+        let menuLocation = "";
         if (this.componentName && this.configFile) {
             const configModule = modules.find(module => module.name === this.componentName);
             if (configModule === undefined) {
@@ -54,9 +55,50 @@ class MenuBuilder {
             }
             this.menu = yaml.load(menuConfigFile.contents.toString());
             this.logger.info(`menu setup is loaded from module/file '${this.componentName}/${this.configFile}'`);
+            menuLocation = `${this.componentName}/${this.configFile}`;
         } else {
             this.logger.info(`menu setup is defined via playbook extension config options`);
+            menuLocation = "playbook";
         }
+        this.menu = this.resolveIncludes(this.menu, modules, menuLocation, new Stack(menuLocation));
+    }
+
+    resolveIncludes(entries, modules, menuLocation, stack) {
+        let resolvedMenu = [];
+        for (let entry of entries) {
+            if (entry.include) {
+                let qualified = `${entry.include.module}/${entry.include.file}`;
+                const entriesToInclude = this.resolveIncludes(
+                    this.loadInclude(entry.include.module, entry.include.file, modules, menuLocation),
+                    modules,
+                    `${menuLocation} => includes ${entry.include.module}/${entry.include.file}`,
+                    stack.push(qualified)
+                );
+                this.logger.debug(`menu include loaded at '${stack}' from '${qualified}'`);
+                resolvedMenu.push(...entriesToInclude);
+            } else {
+                if (entry.entries) {
+                    let copy = {...entry};
+                    copy.entries = this.resolveIncludes(entry.entries, modules, menuLocation, stack);
+                    resolvedMenu.push(copy);
+                } else {
+                    resolvedMenu.push(entry);
+                }
+            }
+        }
+        return resolvedMenu;
+    }
+
+    loadInclude(component, file, modules, menuLocation) {
+        const includeModule = modules.find(module => module.name === component);
+        if (includeModule === undefined) {
+            throw new Error(`specified menu include '${component}' not found, specified at ${menuLocation}`);
+        }
+        const includeFile = includeModule.files.find(f => f.src.path === file);
+        if (includeFile === undefined) {
+            throw new Error(`specified menu include file '${file}' not found in '${component}', specified at ${menuLocation}`);
+        }
+        return yaml.load(includeFile.contents.toString());
     }
 
     identifyOrphanedComponents(contentCatalog) {
@@ -73,9 +115,9 @@ class MenuBuilder {
     }
 
     reduceComponents(menuEntry, fnHandler) {
-        if(menuEntry.module) {
+        if (menuEntry.module) {
             fnHandler(menuEntry.module);
-        } else if(menuEntry.entries) {
+        } else if (menuEntry.entries) {
             menuEntry.entries.forEach(entry => this.reduceComponents(entry, fnHandler))
         }
     }
@@ -83,7 +125,9 @@ class MenuBuilder {
     build(contentCatalog) {
         // resolved menu template
         const mainMenuContent = new MenuContent(this.hbs.groupStart, this.hbs.groupEnd, this.hbs.docRef);
-        this.menu.forEach(entry => { mainMenuContent.add(this.inspectEntry(entry, contentCatalog)) })
+        this.menu.forEach(entry => {
+            mainMenuContent.add(this.inspectEntry(entry, contentCatalog))
+        })
         return mainMenuContent.toPartialHandlebar();
     }
 
@@ -95,17 +139,17 @@ class MenuBuilder {
     }
 
     inspectEntry(entry, contentCatalog) {
-        if(entry.link) {
+        if (entry.link) {
             // external link
             return Document.external(entry.title, entry.link);
-        } else if(entry.module) {
+        } else if (entry.module) {
             // module reference
             const component = contentCatalog.getComponent(entry.module);
-            if(component && entry.page ) {
+            if (component && entry.page) {
                 let pages = contentCatalog.getPages(p => {
                     return p.src.path === entry.page;
                 });
-                let page = pages.find(()  => true);
+                let page = pages.find(() => true);
                 return page
                     ? Document.resolvedPage(entry.title ? entry.title : page.asciidoc.doctitle, page.pub.url, component.name)
                     : Document.unresolvedPage(`${component.latest.title} (${entry.page})`, component.latest.url, component.name);
@@ -113,7 +157,7 @@ class MenuBuilder {
             return component
                 ? Document.resolved(entry.title ? entry.title : component.latest.title, component.latest.url, component.name)
                 : Document.unresolved(entry.module);
-        } else if(entry.title) {
+        } else if (entry.title) {
             // group
             const groupNode = new Group(entry.title);
             entry.entries?.forEach((subEntry) => {
@@ -124,6 +168,28 @@ class MenuBuilder {
             // unspecified
             throw new Error(`bad entry format. Couldn't identify one of [group, module reference or external link]. Entry: ${this.toString(entry)}`)
         }
+    }
+}
+
+class Stack {
+
+    stack;
+
+    constructor(initial) {
+        this.stack = Array.isArray(initial) ? initial : [initial];
+    }
+
+    push(layer) {
+        if(this.stack.includes(layer)) {
+            throw new Error(`include recursion detected at '${this.stack.join(" -> ")}' => '${layer}'`);
+        }
+        let newStack = [...this.stack];
+        newStack.push(layer);
+        return new Stack(newStack);
+    }
+
+    toString() {
+        return this.stack.join(" -> ");
     }
 
 }

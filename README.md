@@ -72,7 +72,9 @@ antora:
 
 The definition and the dedicated component resource are following the same schema:
 
-A menu definition consists of a list if of menu groups, component references and/or external links.
+A menu definition consists of a list if of menu [groups](#group), [component references](#component-start-page), [component page reference](#component-page-reference), [external links](#external-link) and/or [menu includes](#menu-include).
+
+#### Group
 
 A **group** is defined as:
 
@@ -85,6 +87,8 @@ A **group** is defined as:
 ```
 Nested elements may be groups (again), component references and/or external links.
 
+#### Component Start Page
+
 A **component start page reference** is defined as:
 
 ```yaml
@@ -93,6 +97,8 @@ A **component start page reference** is defined as:
 ```
 where 
 * `<moduleId>` is the `name` value from the targeted `antora.yml` element. 
+
+#### Component Page Reference
 
 A **component explicit page reference** is defined as:
 
@@ -106,12 +112,32 @@ where
 * `<moduleId>` is the `name` value from the targeted `antora.yml` element and
 * `<pageFilePath>` is the relative filesystem path to the page file to target
 
+#### External Link
+
 An **external link** is defined as:
 
 ```yaml
 - title: <link display text>
   link: <target url>
 ```
+
+#### Menu Include
+
+An **include** is defined as:
+
+```yaml
+- include:
+    - module: <moduleId>
+      file: <menuFilePath>
+```
+
+where
+* `<moduleId>` is the `name` value from the targeted `antora.yml` element and
+* `<menuFilePath>` is the relative filesystem path to the menu file to include
+
+The content of the menu file replaces the `include` item in the resolved menu structure (at the same order place and indent level).
+Remark: the included menu may consist of multiple entries and includes again. 
+
 
 Example menu
 ```yaml
@@ -133,6 +159,11 @@ antora:
               link: https://docs.antora.org
             - title: Configure this extension
               link: https://github.com/kiwigrid/antora-menu-extension
+        - title: Included
+          entries:
+            - include:
+                module: include-a
+                file: sub-menu.yaml
 ```
 
 ### UI Template Customization
