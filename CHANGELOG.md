@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.0](https://github.com/kiwigrid/antora-menu-extension/compare/v1.3.0...v1.4.0) (2025-08-04)
+
+
+### 🎁 Features
+
+* support menu decomposition via includes ([50201b3](https://github.com/kiwigrid/antora-menu-extension/commit/50201b3cf6bb04a2cd0f4e984f3074c1ab269133))
+* support menu decomposition via includes ([5d35b07](https://github.com/kiwigrid/antora-menu-extension/commit/5d35b0777d79f399168b81829207b6256fca3921))
+
 ## [1.3.0](https://github.com/kiwigrid/antora-menu-extension/compare/v1.2.0...v1.3.0) (2025-05-16)
 
 
