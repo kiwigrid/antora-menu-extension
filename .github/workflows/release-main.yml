@@ -3,6 +3,9 @@ on:
     branches:
       - main
 name: release-please
+permissions:
+  id-token: write  # Required for OIDC to npmjs.com
+  contents: read
 jobs:
   release-please:
     runs-on: ubuntu-latest
