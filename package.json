@@ -13,7 +13,7 @@
   "main": "extensions/v1/index.js",
   "dependencies": {
     "handlebars": "^4.7.7",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^5.2.0",
     "vinyl": "^3.0.0"
   },
   "peerDependencies": {
